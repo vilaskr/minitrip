@@ -109,22 +109,26 @@ export default function Expenses({ tripId, limit, compact = false }: { tripId: s
 
   if (compact) {
     return (
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-1 gap-6">
         {expenses.map(expense => (
-          <div key={expense.id} className="flex items-center justify-between p-4 bg-white border-4 border-black shadow-[4px_4px_0_#000]">
-             <div className="flex items-center gap-3">
-               <div className={cn("w-10 h-10 border-2 border-black flex items-center justify-center", CATEGORIES.find(c => c.id === expense.category)?.color)}>
-                 <ReceiptText className="w-5 h-5" />
+          <div key={expense.id} className="flex items-center justify-between p-5 bg-white border-4 border-black shadow-[4px_4px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all">
+             <div className="flex items-center gap-4">
+               <div className={cn("w-12 h-12 border-2 border-black flex items-center justify-center shadow-[2px_2px_0_#000]", CATEGORIES.find(c => c.id === expense.category)?.color)}>
+                 <ReceiptText className="w-6 h-6" />
                </div>
                <div>
-                  <p className="font-black text-sm uppercase leading-tight">{expense.title}</p>
-                  <p className="text-[10px] font-black uppercase opacity-40">By {expense.paidBy}</p>
+                  <p className="font-black text-base uppercase leading-tight tracking-tighter">{expense.title}</p>
+                  <p className="text-[10px] font-black uppercase opacity-60">By {expense.paidBy}</p>
                </div>
              </div>
-             <p className="font-black text-lg tracking-tighter">₹{expense.amount.toLocaleString()}</p>
+             <p className="font-black text-2xl tracking-tighter">₹{expense.amount.toLocaleString()}</p>
           </div>
         ))}
-        {expenses.length === 0 && <p className="text-[10px] font-black text-center py-4 uppercase opacity-40 italic">Nothing logged yet</p>}
+        {expenses.length === 0 && (
+          <div className="text-center py-8 bg-zinc-50 border-4 border-black border-dashed">
+            <p className="text-xs font-black uppercase opacity-40 italic">Nothing logged yet</p>
+          </div>
+        )}
       </div>
     );
   }

@@ -267,22 +267,22 @@ export default function TripView() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-12 lg:p-16 bg-brand-beige relative selection:bg-brand-red selection:text-white">
-          <div className="max-w-7xl mx-auto space-y-12 pb-24">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 bg-brand-beige relative selection:bg-brand-red selection:text-white">
+          <div className="max-w-[1400px] mx-auto space-y-12 pb-24">
             <TripCountdown startDate={trip?.startDate} />
             <TripHeader trip={trip} stats={stats} />
             
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               >
                 {activeTab === 'overview' && (
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    <div className="lg:col-span-2 space-y-16">
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
+                    <div className="xl:col-span-8 space-y-16">
                       <RouteOverview tripId={tripId!} />
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -291,11 +291,13 @@ export default function TripView() {
                               <div className="w-3 h-10 bg-brand-blue border-2 border-black" />
                               <h3 className="text-3xl font-black uppercase tracking-tighter">Up Next</h3>
                           </div>
-                          <Itinerary tripId={tripId!} limit={2} />
+                          <div className="min-h-[200px]">
+                            <Itinerary tripId={tripId!} limit={2} />
+                          </div>
                           <Button 
                               variant="secondary" 
                               size="sm" 
-                              className="w-full"
+                              className="w-full h-12 text-lg"
                               onClick={() => setActiveTab('itinerary')}
                           >
                               View Full Itinerary
@@ -306,11 +308,13 @@ export default function TripView() {
                               <div className="w-3 h-10 bg-brand-yellow border-2 border-black" />
                               <h3 className="text-3xl font-black uppercase tracking-tighter">Pinned Spots</h3>
                           </div>
-                          <Places tripId={tripId!} limit={2} />
+                          <div className="min-h-[200px]">
+                            <Places tripId={tripId!} limit={2} />
+                          </div>
                           <Button 
                               variant="secondary" 
                               size="sm" 
-                              className="w-full"
+                              className="w-full h-12 text-lg"
                               onClick={() => setActiveTab('places')}
                           >
                               Explore All Bookmarks
@@ -323,13 +327,13 @@ export default function TripView() {
                               <div className="w-3 h-10 bg-brand-orange border-2 border-black" />
                               <h3 className="text-3xl font-black uppercase tracking-tighter">Budget Snapshot</h3>
                           </div>
-                          <Card variant="white" className="p-0">
+                          <Card variant="white" className="p-0 overflow-hidden">
                                <Expenses tripId={tripId!} limit={4} compact />
-                               <div className="p-4 border-t-4 border-black bg-brand-beige flex justify-center">
+                               <div className="p-6 border-t-4 border-black bg-brand-cream/50 flex justify-center">
                                   <Button 
                                       variant="secondary" 
                                       size="sm" 
-                                      className="w-full md:w-auto"
+                                      className="px-12 h-12 text-lg"
                                       onClick={() => setActiveTab('expenses')}
                                   >
                                       Detailed Breakdown
@@ -339,7 +343,7 @@ export default function TripView() {
                       </div>
                     </div>
 
-                    <div className="lg:col-span-1 border-l-4 border-black/5 pl-0 lg:pl-12">
+                    <div className="xl:col-span-4 border-l-4 border-black/5 pl-0 xl:pl-12">
                        <ActivityFeed tripId={tripId!} />
                     </div>
                   </div>

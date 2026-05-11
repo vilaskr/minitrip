@@ -50,27 +50,23 @@ export default function ActivityFeed({ tripId }: { tripId: string }) {
               key={activity.id}
             >
               <Card 
-                className="p-4 flex items-center justify-between border-2 border-black bg-white hover:bg-zinc-50 transition-colors shadow-[4px_4px_0_#000]"
+                className="p-3 flex items-start gap-4 border-2 border-black bg-white hover:bg-zinc-50 transition-colors shadow-[2px_2px_0_#000]"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-black text-white flex items-center justify-center border-2 border-black shadow-[2px_2px_0_#ccc]">
-                    <User className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="font-black text-sm uppercase tracking-tight">
-                      <span className="text-brand-red">{activity.memberName}</span> {activity.action}
-                    </p>
-                    <div className="flex items-center gap-1 text-[10px] font-bold uppercase opacity-40 mt-1">
-                      <Clock className="w-3 h-3" />
-                      {activity.timestamp ? formatDistanceToNow(activity.timestamp.toDate()) + ' ago' : 'JUST NOW'}
-                    </div>
+                <div className="w-8 h-8 bg-black text-white flex items-center justify-center border-2 border-black shrink-0 relative">
+                  <User className="w-4 h-4" />
+                  {index === 0 && (
+                      <div className="absolute -top-2 -right-2 w-3 h-3 bg-brand-yellow border-2 border-black rounded-full" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-black text-[11px] uppercase tracking-tight leading-tight">
+                    <span className="text-brand-red">{activity.memberName}</span> {activity.action}
+                  </p>
+                  <div className="flex items-center gap-1 text-[9px] font-bold uppercase opacity-40 mt-1">
+                    <Clock className="w-2.5 h-2.5" />
+                    {activity.timestamp ? formatDistanceToNow(activity.timestamp.toDate()) + ' ago' : 'JUST NOW'}
                   </div>
                 </div>
-                {index === 0 && (
-                    <div className="bg-brand-yellow px-2 py-0.5 text-[8px] font-black uppercase border-2 border-black">
-                        NEW
-                    </div>
-                )}
               </Card>
             </motion.div>
           ))}

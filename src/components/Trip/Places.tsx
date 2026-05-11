@@ -77,12 +77,18 @@ export default function Places({ tripId, limit }: { tripId: string, limit?: numb
       )}
 
       {places.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={cn(
+          "grid gap-6",
+          limit ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        )}>
           {places.map(place => (
-            <Card key={place.id} variant="white" hasShadow className="p-0 overflow-hidden group" isHoverable>
-              <div className="h-40 bg-zinc-100 flex items-center justify-center border-b-4 border-black relative overflow-hidden">
+            <Card key={place.id} variant="white" hasShadow className={cn("p-0 overflow-hidden group", limit ? "flex" : "block")} isHoverable>
+              <div className={cn(
+                "bg-zinc-100 flex items-center justify-center border-black relative overflow-hidden shrink-0",
+                limit ? "w-24 border-r-4 h-auto" : "h-40 border-b-4 w-full"
+              )}>
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
-                <MapPin className="w-16 h-16 text-black group-hover:scale-110 transition-transform relative z-10" />
+                <MapPin className={cn("text-black group-hover:scale-110 transition-transform relative z-10", limit ? "w-8 h-8" : "w-16 h-16")} />
                 {!limit && (
                    <button 
                     onClick={() => handleDelete(place.id)}
@@ -92,14 +98,18 @@ export default function Places({ tripId, limit }: { tripId: string, limit?: numb
                    </button>
                 )}
               </div>
-              <div className="p-6">
-                <h4 className="text-2xl font-black uppercase tracking-tighter truncate mb-2">{place.name}</h4>
-                <p className="text-xs font-bold uppercase opacity-60 mb-6 line-clamp-3 min-h-[48px] leading-snug">{place.description || "NO DESCRIPTION PROVIDED."}</p>
+              <div className={cn("p-6 flex-1 flex flex-col justify-between", limit ? "py-4" : "p-6")}>
+                <div>
+                  <h4 className={cn("font-black uppercase tracking-tighter truncate mb-1", limit ? "text-xl" : "text-2xl")}>{place.name}</h4>
+                  <p className={cn("font-bold uppercase opacity-60 line-clamp-2 leading-snug", limit ? "text-[10px]" : "text-xs mb-4 min-h-[48px]")}>
+                    {place.description || "NO DESCRIPTION PROVIDED."}
+                  </p>
+                </div>
                 {place.mapUrl && (
                   <Button 
                     variant="blue" 
-                    size="sm" 
-                    className="w-full"
+                    size="xs" 
+                    className={cn("mt-4", limit ? "w-fit" : "w-full")}
                     onClick={() => window.open(place.mapUrl, '_blank')}
                     rightIcon={<ExternalLink className="w-3 h-3" />}
                   >

@@ -95,45 +95,57 @@ export default function Itinerary({ tripId, limit }: { tripId: string, limit?: n
       )}
 
       {days.length > 0 ? (
-        <div className="space-y-12 relative before:absolute before:left-[19px] before:top-4 before:bottom-4 before:w-1 before:bg-black/10">
+        <div className={cn(
+          "space-y-12 relative",
+          !limit && "before:absolute before:left-[19px] before:top-4 before:bottom-4 before:w-1 before:bg-black/10"
+        )}>
           {days.map(day => (
-            <div key={day} className="space-y-6 relative">
-              <div className="sticky top-20 z-10 bg-brand-beige py-2 flex items-center gap-4">
-                 <div className="w-10 h-10 bg-black text-white border-4 border-black font-black text-lg flex items-center justify-center relative z-10 shadow-[4px_4px_0_#ccc]">
-                   {day}
-                 </div>
-                 <h4 className="text-2xl font-black uppercase tracking-tighter italic">Day {day}</h4>
-              </div>
-
-              <div className="space-y-4 pl-12">
+            <div key={day} className="space-y-4 relative">
+              {!limit && (
+                <div className="sticky top-20 z-10 bg-brand-beige py-2 flex items-center gap-4">
+                  <div className="w-10 h-10 bg-black text-white border-4 border-black font-black text-lg flex items-center justify-center relative z-10 shadow-[4px_4px_0_#000]">
+                    {day}
+                  </div>
+                  <h4 className="text-2xl font-black uppercase tracking-tighter italic">Day {day}</h4>
+                </div>
+              )}
+              
+              <div className={cn("space-y-6", !limit && "pl-12")}>
                 {groupedItems[day].map(item => (
-                  <Card key={item.id} variant="white" hasShadow className="p-4 group" isHoverable>
+                  <Card key={item.id} variant="white" hasShadow className={cn("p-4 group", limit ? "border-l-8 border-l-brand-blue" : "")} isHoverable>
                     <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
                           {item.time && (
-                            <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest bg-brand-red text-white px-2 py-0.5 rounded leading-none border-2 border-black">
+                            <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest bg-brand-red text-white px-2 py-0.5 border-2 border-black">
                               <Clock className="w-3 h-3" /> {item.time}
                             </div>
                           )}
                           {item.location && (
-                             <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest bg-brand-blue text-white px-2 py-0.5 rounded leading-none border-2 border-black">
+                             <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest bg-brand-blue text-white px-2 py-0.5 border-2 border-black">
                               <MapPin className="w-3 h-3" /> {item.location}
                             </div>
                           )}
+                          {limit && (
+                             <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest bg-black text-white px-2 py-0.5 border-2 border-black">
+                              DAY {day}
+                            </div>
+                          )}
                         </div>
-                        <div className="flex items-center justify-between gap-2">
-                          <h5 className="text-2xl font-black uppercase tracking-tighter leading-none group-hover:text-brand-red transition-colors">{item.title}</h5>
+                        <div className="flex items-start justify-between gap-2">
+                          <h5 className={cn("font-black uppercase tracking-tighter leading-tight group-hover:text-brand-red transition-colors min-w-0 break-words", limit ? "text-xl" : "text-2xl")}>
+                            {item.title}
+                          </h5>
                           {!limit && (
                             <button 
                               onClick={() => handleDelete(item.id)}
-                              className="text-black/10 hover:text-brand-red transition-colors p-1"
+                              className="text-black/10 hover:text-brand-red transition-colors p-1 shrink-0"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           )}
                         </div>
-                        {item.notes && <p className="text-[10px] font-bold uppercase opacity-60 mt-3 leading-tight border-l-4 border-black/10 pl-3 italic">{item.notes}</p>}
+                        {item.notes && <p className="text-[10px] font-bold uppercase opacity-60 mt-2 leading-tight border-l-4 border-black/10 pl-3 italic">{item.notes}</p>}
                       </div>
                     </div>
                   </Card>
