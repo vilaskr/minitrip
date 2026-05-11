@@ -1,0 +1,124 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation helpers
+    function isValidTrip(data) {
+      return data.keys().hasAll(['name', 'destination', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 &&
+             data.destination is string &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidActivity(data) {
+      return data.keys().hasAll(['memberName', 'action', 'timestamp']) &&
+             data.memberName is string &&
+             data.action is string &&
+             data.timestamp is timestamp;
+    }
+
+    function isValidMember(data) {
+      return data.keys().hasAll(['name', 'color', 'joinedAt']) &&
+             data.name is string && data.name.size() > 0 &&
+             data.color is string &&
+             data.joinedAt is timestamp;
+    }
+
+    function isValidExpense(data) {
+      return data.keys().hasAll(['title', 'amount', 'category', 'paidBy', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 &&
+             data.amount is number &&
+             data.category is string &&
+             data.paidBy is string &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidItinerary(data) {
+      return data.keys().hasAll(['title', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidChecklist(data) {
+      return data.keys().hasAll(['task', 'completed', 'createdAt']) &&
+             data.task is string && data.task.size() > 0 &&
+             data.completed is bool &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidPlace(data) {
+      return data.keys().hasAll(['name', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 &&
+             data.createdAt is timestamp;
+    }
+
+    // Trips collection
+    match /trips/{tripId} {
+      allow read: if isValidId(tripId);
+      allow create: if isValidId(tripId);
+      allow update: if isValidId(tripId);
+      allow delete: if false;
+
+      match /activities/{activityId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidActivity(incoming());
+      }
+
+      match /members/{memberId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidMember(incoming());
+        allow update: if isValidId(tripId) && isValidMember(incoming());
+        allow delete: if isValidId(tripId);
+      }
+
+      match /expenses/{expenseId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidExpense(incoming());
+        allow update: if isValidId(tripId) && isValidExpense(incoming());
+        allow delete: if isValidId(tripId);
+      }
+
+      match /itinerary/{itemId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidItinerary(incoming());
+        allow update: if isValidId(tripId) && isValidItinerary(incoming());
+        allow delete: if isValidId(tripId);
+      }
+
+      match /checklist/{itemId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidChecklist(incoming());
+        allow update: if isValidId(tripId) && isValidChecklist(incoming());
+        allow delete: if isValidId(tripId);
+      }
+
+      match /places/{placeId} {
+        allow read: if isValidId(tripId);
+        allow create: if isValidId(tripId) && isValidPlace(incoming());
+        allow update: if isValidId(tripId) && isValidPlace(incoming());
+        allow delete: if isValidId(tripId);
+      }
+    }
+  }
+}

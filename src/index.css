@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+  
+  --color-brand-red: #FF4D4D;
+  --color-brand-beige: #FDF6E3;
+  --color-brand-yellow: #FFD93D;
+  --color-brand-blue: #4D96FF;
+  --color-brand-orange: #FFB703;
+  --color-brand-green: #6BCB77;
+  --color-brand-gray: #F5F5F5;
+  --color-brand-cream: #FFF9E1;
+}
+
+@layer base {
+  * {
+    @apply border-black;
+  }
+
+  body {
+    @apply bg-brand-beige text-black font-sans selection:bg-brand-red selection:text-white cursor-default;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-brand-beige border-l-4 border-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-black border-2 border-brand-beige;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-red;
+  }
+
+  /* Focus rings */
+  :focus-visible {
+    @apply outline-none ring-4 ring-black/20;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+

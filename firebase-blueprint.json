@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "Trip": {
+      "title": "Trip",
+      "description": "Main trip document",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "destination": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "coverImage": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      },
+      "required": ["name", "destination", "createdAt"]
+    },
+    "Member": {
+      "title": "Member",
+      "description": "Trip participant",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "joinedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "color", "joinedAt"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "A trip expense",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "category": { "type": "string" },
+        "paidBy": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "amount", "category", "paidBy", "createdAt"]
+    },
+    "ItineraryItem": {
+      "title": "Itinerary Item",
+      "description": "A planned activity",
+      "type": "object",
+      "properties": {
+        "time": { "type": "string" },
+        "title": { "type": "string" },
+        "location": { "type": "string" },
+        "notes": { "type": "string" },
+        "day": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "createdAt"]
+    },
+    "ChecklistItem": {
+      "title": "Checklist Item",
+      "description": "A task to complete",
+      "type": "object",
+      "properties": {
+        "task": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["task", "completed", "createdAt"]
+    },
+    "Place": {
+      "title": "Place",
+      "description": "A destination or point of interest",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "mapUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/trips/{tripId}": {
+      "schema": "Trip",
+      "description": "Root trip document"
+    },
+    "/trips/{tripId}/members/{memberId}": {
+      "schema": "Member",
+      "description": "Participants in the trip"
+    },
+    "/trips/{tripId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Expenses logged for the trip"
+    },
+    "/trips/{tripId}/itinerary/{itemId}": {
+      "schema": "ItineraryItem",
+      "description": "Planned activities"
+    },
+    "/trips/{tripId}/checklist/{itemId}": {
+      "schema": "ChecklistItem",
+      "description": "Packing or task list items"
+    },
+    "/trips/{tripId}/places/{placeId}": {
+      "schema": "Place",
+      "description": "Interesting places to visit"
+    }
+  }
+}
