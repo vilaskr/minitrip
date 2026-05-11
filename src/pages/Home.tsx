@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
+import { Logo } from '../components/ui/Logo';
 
 export default function Home() {
   const [tripCode, setTripCode] = useState('');
@@ -62,10 +63,13 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-20 min-h-screen flex flex-col justify-center">
       <div className="text-center mb-16">
-        <div className="inline-block bg-brand-red border-4 border-black p-4 rotate-[-2deg] shadow-[8px_8px_0_#000] mb-8">
-          <h1 className="text-5xl md:text-8xl font-heading font-black tracking-tighter text-white flex items-center gap-4">
-            MINITRIP <Plane className="w-10 h-10 md:w-20 md:h-20 fill-white stroke-black stroke-[3px]" />
-          </h1>
+        <div className="flex flex-col items-center gap-6 mb-8">
+          <Logo size="xl" />
+          <div className="inline-block bg-brand-red border-4 border-black p-4 rotate-[-2deg] shadow-[8px_8px_0_#000]">
+            <h1 className="text-5xl md:text-8xl font-heading font-black tracking-tighter text-white flex items-center gap-4">
+              MINITRIP <Plane className="w-10 h-10 md:w-20 md:h-20 fill-white stroke-black stroke-[3px]" />
+            </h1>
+          </div>
         </div>
         <p className="text-xl md:text-2xl font-black uppercase tracking-tight max-w-2xl mx-auto">
           Collaborative trip planning for the digital wanderer.

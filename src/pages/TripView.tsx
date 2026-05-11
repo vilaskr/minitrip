@@ -32,6 +32,7 @@ import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Modal } from '../components/ui/Modal';
 import ConnectivityStatus from '../components/ui/ConnectivityStatus';
+import { Logo } from '../components/ui/Logo';
 import { logActivity } from '../lib/utils';
 
 export default function TripView() {
@@ -169,9 +170,7 @@ export default function TripView() {
         transition={{ repeat: Infinity, duration: 2 }}
         className="flex flex-col items-center gap-6"
       >
-        <div className="w-24 h-24 bg-brand-red border-8 border-black flex items-center justify-center shadow-[8px_8px_0_#000]">
-           <MapIcon className="w-12 h-12 text-white animate-pulse" />
-        </div>
+        <Logo size="xl" />
         <h2 className="text-4xl font-black uppercase tracking-tight">Syncing Adventure...</h2>
       </motion.div>
     </div>
@@ -192,6 +191,7 @@ export default function TripView() {
       {/* Top Navbar */}
       <header className="h-24 bg-white border-b-8 border-black flex items-center justify-between px-6 md:px-12 z-50 sticky top-0 shadow-[0_4px_0_rgba(0,0,0,1)]">
         <div className="flex items-center gap-6">
+          <Logo size="sm" className="hidden md:flex flex-shrink-0" />
           <button 
             onClick={() => navigate('/')}
             className="hidden md:flex items-center justify-center p-2 bg-brand-beige border-4 border-black shadow-[4px_4px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:scale-90"
