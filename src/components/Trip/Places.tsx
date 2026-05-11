@@ -3,7 +3,7 @@ import { db, auth } from '../../lib/firebase';
 import { collection, onSnapshot, query, orderBy, addDoc, serverTimestamp, limit as firestoreLimit, deleteDoc, doc } from 'firebase/firestore';
 import { MapIcon, Plus, ExternalLink, MapPin, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { handleFirestoreError, OperationType, logActivity } from '../../lib/utils';
+import { cn, handleFirestoreError, OperationType, logActivity } from '../../lib/utils';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
