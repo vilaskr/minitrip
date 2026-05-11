@@ -59,12 +59,12 @@ export default function ActivityFeed({ tripId }: { tripId: string }) {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-black text-[11px] uppercase tracking-tight leading-tight">
+                  <p className="font-black text-[11px] uppercase tracking-tight leading-tight break-words">
                     <span className="text-brand-red">{activity.memberName}</span> {activity.action}
                   </p>
-                  <div className="flex items-center gap-1 text-[9px] font-bold uppercase opacity-40 mt-1">
-                    <Clock className="w-2.5 h-2.5" />
-                    {activity.timestamp ? formatDistanceToNow(activity.timestamp.toDate()) + ' ago' : 'JUST NOW'}
+                  <div className="flex items-center gap-1 text-[9px] font-bold uppercase opacity-40 mt-1 shrink-0">
+                    <Clock className="w-2.5 h-2.5 shrink-0" />
+                    <span className="truncate">{activity.timestamp ? formatDistanceToNow(activity.timestamp.toDate()) + ' ago' : 'JUST NOW'}</span>
                   </div>
                 </div>
               </Card>

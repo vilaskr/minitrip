@@ -98,10 +98,10 @@ export default function Places({ tripId, limit }: { tripId: string, limit?: numb
                    </button>
                 )}
               </div>
-              <div className={cn("p-6 flex-1 flex flex-col justify-between", limit ? "py-4" : "p-6")}>
+              <div className={cn("p-4 flex-1 flex flex-col justify-between", limit ? "py-3 px-4" : "p-6")}>
                 <div>
-                  <h4 className={cn("font-black uppercase tracking-tighter truncate mb-1", limit ? "text-xl" : "text-2xl")}>{place.name}</h4>
-                  <p className={cn("font-bold uppercase opacity-60 line-clamp-2 leading-snug", limit ? "text-[10px]" : "text-xs mb-4 min-h-[48px]")}>
+                  <h4 className={cn("font-black uppercase tracking-tighter mb-1 leading-[1.1] break-words", limit ? "text-lg line-clamp-2" : "text-2xl line-clamp-2")}>{place.name}</h4>
+                  <p className={cn("font-bold uppercase opacity-60 leading-tight", limit ? "text-[9px] line-clamp-1" : "text-xs mb-4 min-h-[48px] line-clamp-3")}>
                     {place.description || "NO DESCRIPTION PROVIDED."}
                   </p>
                 </div>
@@ -109,7 +109,7 @@ export default function Places({ tripId, limit }: { tripId: string, limit?: numb
                   <Button 
                     variant="blue" 
                     size="xs" 
-                    className={cn("mt-4", limit ? "w-fit" : "w-full")}
+                    className={cn("mt-2", limit ? "w-fit" : "w-full")}
                     onClick={() => window.open(place.mapUrl, '_blank')}
                     rightIcon={<ExternalLink className="w-3 h-3" />}
                   >

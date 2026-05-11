@@ -24,11 +24,11 @@ export default function TripHeader({ trip, stats }: TripHeaderProps) {
 
         <div className="relative z-10 text-center px-6 max-w-3xl">
             <div className="inline-block bg-white border-8 border-black p-6 md:p-8 rotate-[-2deg] shadow-[12px_12px_0_#000] mb-6 transition-all group-hover:rotate-0">
-              <h1 className="text-4xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8]">{trip.name}</h1>
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[1] break-words">{trip.name}</h1>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
-              <div className="bg-black text-white px-5 py-2 flex items-center gap-2 border-2 border-black font-black uppercase text-xs md:text-sm shadow-[6px_6px_0_#FFD93D]">
-                <MapPin className="w-4 h-4 text-brand-yellow" /> {trip.destination}
+              <div className="bg-black text-white px-5 py-2 flex items-center gap-2 border-2 border-black font-black uppercase text-xs md:text-sm shadow-[6px_6px_0_#FFD93D] max-w-full">
+                <MapPin className="w-4 h-4 text-brand-yellow shrink-0" /> <span className="truncate">{trip.destination}</span>
               </div>
               <div className="bg-white border-4 border-black px-5 py-2 flex items-center gap-2 font-black uppercase text-xs md:text-sm shadow-[6px_6px_0_#000]">
                 <Calendar className="w-4 h-4 text-brand-blue" /> READY FOR ADVENTURE
