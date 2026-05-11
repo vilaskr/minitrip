@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wifi, WifiOff, CloudSync } from 'lucide-react';
+import { Wifi, WifiOff } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 export default function ConnectivityStatus() {

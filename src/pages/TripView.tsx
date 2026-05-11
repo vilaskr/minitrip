@@ -35,7 +35,8 @@ import ConnectivityStatus from '../components/ui/ConnectivityStatus';
 import { logActivity } from '../lib/utils';
 
 export default function TripView() {
-  const { tripId } = useParams<{ tripId: string }>();
+  const { tripId: rawTripId } = useParams<{ tripId: string }>();
+  const tripId = rawTripId?.toUpperCase();
   const navigate = useNavigate();
   const [trip, setTrip] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -131,9 +132,34 @@ export default function TripView() {
     }
   };
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('INVITE LINK COPIED!');
+  const copyLink = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success('INVITE LINK COPIED!');
+    } catch (err) {
+      // Fallback for non-secure contexts or other restrictions
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (successful) {
+          toast.success('INVITE LINK COPIED!');
+        } else {
+          throw new Error('Fallback failed');
+        }
+      } catch (fallbackErr) {
+        console.error('Copy failed:', fallbackErr);
+        toast.error('FAILED TO COPY. PLEASE COPY ADDRESS BAR.');
+      }
+    }
   };
 
   if (loading) return (

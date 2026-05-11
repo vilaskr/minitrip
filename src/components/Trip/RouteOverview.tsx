@@ -12,9 +12,9 @@ export default function RouteOverview({ tripId }: { tripId: string }) {
   useEffect(() => {
     const q = query(collection(db, 'trips', tripId, 'places'), orderBy('order', 'asc'));
     const unsub = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as any[];
       // If no order, assign one based on creation
-      if (data.length > 0 && data[0].order === undefined) {
+      if (data.length > 0 && (data[0] as any).order === undefined) {
          data.forEach((item, i) => {
              updateDoc(doc(db, 'trips', tripId, 'places', item.id), { order: i });
          });

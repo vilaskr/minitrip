@@ -5,6 +5,8 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'white' | 'cream' | 'yellow' | 'blue' | 'green' | 'orange' | 'red';
   hasShadow?: boolean;
   isHoverable?: boolean;
+  children?: React.ReactNode;
+  className?: string;
 }
 
 export const Card = ({ 
