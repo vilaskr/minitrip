@@ -355,6 +355,16 @@ export default function TripView() {
                 {activeTab === 'places' && <Places tripId={tripId!} />}
               </motion.div>
             </AnimatePresence>
+
+            {/* Copyright & Credits Footer */}
+            <div className="pt-12 border-t-4 border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
+              <span className="text-xs font-black text-black/40 uppercase tracking-[0.2em] text-center md:text-left">
+                Built with heavy black outlines & pure adrenaline.
+              </span>
+              <div className="inline-block bg-white border-2 border-black px-4 py-1.5 rotate-[-1deg] shadow-[3px_3px_0_#000] text-xs font-black uppercase tracking-wider text-black">
+                Credits: <span className="text-brand-red">Vilas K R</span> • © 2026
+              </div>
+            </div>
           </div>
         </main>
       </div>

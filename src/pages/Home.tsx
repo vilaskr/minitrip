@@ -152,8 +152,13 @@ export default function Home() {
         </Card>
       </div>
 
-      <div className="mt-20 text-center text-sm font-black text-black/30 uppercase tracking-[0.2em]">
-        Built with heavy black outlines & pure adrenaline.
+      <div className="mt-20 text-center flex flex-col items-center justify-center gap-3">
+        <p className="text-xs font-black text-black/40 uppercase tracking-[0.2em]">
+          Built with heavy black outlines & pure adrenaline.
+        </p>
+        <div className="inline-block bg-white border-2 border-black px-4 py-1.5 rotate-[1deg] shadow-[3px_3px_0_#000] text-xs font-black uppercase tracking-wider text-black">
+          Credits: <span className="text-brand-red">Vilas K R</span> • © 2026
+        </div>
       </div>
     </div>
   );
